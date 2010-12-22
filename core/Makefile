@@ -6999,6 +6999,7 @@ PATH=$(INTERNAL_USERIMAGES_BINARY_PATHS):$(dir $(ZIP2ZIP)):$$PATH \
     $(OTA_FROM_TARGET_FILES) \
         --verbose \
         --path $(HOST_OUT) \
+        --backup=$(backuptool) \
         $(if $(OEM_OTA_CONFIG), --oem_settings $(OEM_OTA_CONFIG)) \
         $(if $(BOOT_VAR_OTA_CONFIG), --boot_variable_file $(BOOT_VAR_OTA_CONFIG)) \
         $(2) \
@@ -7015,6 +7016,12 @@ INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
 INTERNAL_OTA_METADATA := $(PRODUCT_OUT)/ota_metadata
 
 $(call declare-0p-target,$(INTERNAL_OTA_METADATA))
+
+ifeq ($(TARGET_EXCLUDE_BACKUPTOOL),true)
+    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
+else
+    $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
+endif
 
 $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
 $(INTERNAL_OTA_PACKAGE_TARGET): .KATI_IMPLICIT_OUTPUTS := $(INTERNAL_OTA_METADATA)

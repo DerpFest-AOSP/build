@@ -264,6 +264,10 @@ A/B OTA specific options
 
   --compression_factor
       Specify the maximum block size to be compressed at once during OTA. supported options: 4k, 8k, 16k, 32k, 64k, 128k, 256k
+
+  --backup <boolean>
+      Enable or disable the execution of backuptool.sh.
+      Disabled by default.
 """
 
 from __future__ import print_function
@@ -337,6 +341,7 @@ OPTIONS.security_patch_level = None
 OPTIONS.max_threads = None
 OPTIONS.vabc_cow_version = None
 OPTIONS.compression_factor = None
+OPTIONS.backuptool = False
 
 
 POSTINSTALL_CONFIG = 'META/postinstall_config.txt'
@@ -1320,6 +1325,8 @@ def main(argv):
       else:
         raise ValueError("Cannot parse value %r for option %r - only "
                          "integers are allowed." % (a, o))
+    elif o == "--backup":
+      OPTIONS.backuptool = True
     else:
       return False
     return True
@@ -1370,6 +1377,7 @@ def main(argv):
                                  "max_threads=",
                                  "vabc_cow_version=",
                                  "compression_factor=",
+                                 "backup=",
                              ], extra_option_handler=[option_handler, payload_signer.signer_options])
   common.InitLogging()
 
