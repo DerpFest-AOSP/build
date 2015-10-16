@@ -303,6 +303,8 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.RunBackup("restore", sysmount, target_info.get('use_dynamic_partitions') == "true")
     script.Print(" BackupTools: DONE!")
 
+  script.Print(" ")
+  script.Print("Flashing boot image..")
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 10)
