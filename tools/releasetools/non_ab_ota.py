@@ -249,7 +249,9 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     sysmount = "/system"
 
   if OPTIONS.backuptool:
+    script.Print("BackupTools: starting backup script")
     script.RunBackup("backup", sysmount, target_info.get('use_dynamic_partitions') == "true")
+    script.Print("BackupTools: DONE! Now real installation will begin")
 
   # All other partitions as well as the data wipe use 10% of the progress, and
   # the update of the system partition takes the remaining progress.
@@ -286,7 +288,9 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   if OPTIONS.backuptool:
     script.ShowProgress(0.02, 10)
+    script.Print("BackupTools: Restoring backup")
     script.RunBackup("restore", sysmount, target_info.get('use_dynamic_partitions') == "true")
+    script.Print("BackupTools: DONE!")
 
   script.Print(" ")
   script.Print("Flashing boot image..")
