@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
     CompanionDeviceManager \
     drmserver \
     fsck.f2fs \
-    HTMLViewer \
     libfilterpack_imageproc \
     libwebviewchromium_loader \
     libwebviewchromium_plat_support \
