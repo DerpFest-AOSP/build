@@ -2277,9 +2277,18 @@ $(recovery_uncompressed_ramdisk): $(MKBOOTFS) \
 	$(if $(strip $(recovery_wipe)), \
 	  cp -f $(recovery_wipe) $(TARGET_RECOVERY_ROOT_OUT)/system/etc/recovery.wipe)
 	ln -sf prop.default $(TARGET_RECOVERY_ROOT_OUT)/default.prop
+ifneq ($(TARGET_PREBUILT_RECOVERY_RAMDISK),)
+	rm -rf $(PRODUCT_OUT)/prebuilt_recovery
+	mkdir -p $(PRODUCT_OUT)/prebuilt_recovery
+	unzip -o $(TARGET_PREBUILT_RECOVERY_RAMDISK) -d $(PRODUCT_OUT)/prebuilt_recovery/
+endif
 	$(BOARD_RECOVERY_IMAGE_PREPARE)
 	@echo ----- Making uncompressed recovery ramdisk ------
+ifneq ($(TARGET_PREBUILT_RECOVERY_RAMDISK),)
+	$(MKBOOTFS) $(PRODUCT_OUT)/prebuilt_recovery > $@
+else
 	$(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
+endif
 
 $(recovery_ramdisk): $(recovery_uncompressed_ramdisk) $(COMPRESSION_COMMAND_DEPS)
 	@echo ----- Making compressed recovery ramdisk ------
@@ -4691,9 +4700,6 @@ ifneq (,$(INSTALLED_RECOVERYIMAGE_TARGET)$(filter true,$(BOARD_USES_RECOVERY_AS_
 	@# Components of the recovery image
 ifneq ($(TARGET_PREBUILT_RECOVERY_RAMDISK),)
 	$(hide) mkdir -p $(zip_root)/$(PRIVATE_RECOVERY_OUT)
-	$(hide) rm -rf $(PRODUCT_OUT)/prebuilt_recovery
-	$(hide) mkdir -p $(PRODUCT_OUT)/prebuilt_recovery
-	$(hide) unzip -o $(TARGET_PREBUILT_RECOVERY_RAMDISK) -d $(PRODUCT_OUT)/prebuilt_recovery/
 	$(hide) $(call package_files-copy-root, \
 	    $(PRODUCT_OUT)/prebuilt_recovery,$(zip_root)/$(PRIVATE_RECOVERY_OUT)/RAMDISK)
 else
