@@ -224,6 +224,12 @@ ifneq ($(TARGET_BUILD_VARIANT),user)
 ADDITIONAL_BUILD_PROPERTIES += persist.debug.dalvik.vm.core_platform_api_policy=just-warn
 endif
 
+# Build fingerprint
+ifneq ($(BUILD_FINGERPRINT),)
+ADDITIONAL_BUILD_PROPERTIES += \
+    ro.build.fingerprint=$(BUILD_FINGERPRINT)
+endif
+
 # Sets the default value of ro.postinstall.fstab.prefix to /system.
 # Device board config should override the value to /product when needed by:
 #
