@@ -28,7 +28,6 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     Music \
     preinstalled-packages-platform-handheld-product.xml \
-    QuickSearchBox \
     SettingsIntelligence \
     frameworks-base-overlays
 
