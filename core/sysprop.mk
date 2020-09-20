@@ -149,7 +149,7 @@ endif
 # non-default dev keys (usually private keys from a vendor directory).
 # Both of these tags will be removed and replaced with "release-keys"
 # when the target-files is signed in a post-build step.
-ifeq ($(DEFAULT_SYSTEM_DEV_CERTIFICATE),build/make/target/product/security/testkey)
+ifeq ($(TARGET_BUILD_VARIANT),eng)
 BUILD_KEYS := test-keys
 else
 BUILD_KEYS := release-keys
