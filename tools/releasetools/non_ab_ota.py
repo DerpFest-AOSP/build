@@ -214,6 +214,29 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   # Dump fingerprints
   script.Print("Target: {}".format(target_info.fingerprint))
 
+  android_version = target_info.GetBuildProp("ro.build.version.release")
+  build_id = target_info.GetBuildProp("ro.build.id")
+  build_date = target_info.GetBuildProp("ro.build.date")
+  security_patch = target_info.GetBuildProp("ro.build.version.security_patch")
+  device = target_info.GetBuildProp("ro.product.device")
+
+  script.Print("------------------------------------------");
+  script.Print("  ____                  _____         _   ");
+  script.Print(" |  _ \  ___ _ __ _ __ |  ___|__  ___| |_ ");
+  script.Print(" | | | |/ _ \ '__| '_ \| |_ / _ \/ __| __|");
+  script.Print(" | |_| |  __/ |  | |_) |  _|  __/\__ \ |_ ");
+  script.Print(" |____/ \___|_|  | .__/|_|  \___||___/\__|");
+  script.Print("                 |_|                      ");
+  script.Print("                                          ");
+  script.Print("      Are you ready for the Derpness?     ");
+  script.Print("                                          ");
+  script.Print("------------------------------------------");
+  script.Print(" Android version: %s"%(android_version));
+  script.Print(" Build id: %s"%(build_id));
+  script.Print(" Build date: %s"%(build_date));
+  script.Print(" Security patch: %s"%(security_patch));
+  script.Print(" Device: %s"%(device));
+  script.Print("------------------------------------------");
   device_specific.FullOTA_InstallBegin()
 
   CopyInstallTools(output_zip)
