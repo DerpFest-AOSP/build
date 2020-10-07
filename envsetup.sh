@@ -821,6 +821,11 @@ function lunch()
     fixup_common_out_dir
 
     set_stuff_for_environment
+
+    echo "";
+    cat $(gettop)/build/make/derp_ascii_logo;
+    echo"";
+
     [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
     destroy_build_var_cache
 
