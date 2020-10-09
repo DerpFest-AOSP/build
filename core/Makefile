@@ -4673,7 +4673,7 @@ ifneq (,$(INSTALLED_RECOVERYIMAGE_TARGET)$(filter true,$(BOARD_USES_RECOVERY_AS_
 	    $(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/$(PRIVATE_RECOVERY_OUT)/RAMDISK)
 	@# OTA install helpers
 	$(hide) $(call package_files-copy-root, \
-	    $(PRODUCT_OUT)/install,$(zip_root)/INSTALL)
+	    $(TARGET_OUT)/install,$(zip_root)/INSTALL)
 ifdef INSTALLED_KERNEL_TARGET
 	cp $(INSTALLED_KERNEL_TARGET) $(zip_root)/$(PRIVATE_RECOVERY_OUT)/
 endif
