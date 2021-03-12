@@ -97,3 +97,11 @@ PRODUCT_USES_DEFAULT_ART_CONFIG := true
 # Disable iorapd by default
 PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     ro.iorapd.enable=false
+
+# Enable Madvising of the whole art, odex and vdex files to MADV_WILLNEED.
+# The size specified here is the size limit of how much of the file
+# (in bytes) is madvised. Setting it to UINT_MAX.
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    dalvik.vm.madvise.vdexfile.size=4294967295 \
+    dalvik.vm.madvise.odexfile.size=4294967295 \
+    dalvik.vm.madvise.artfile.size=4294967295
