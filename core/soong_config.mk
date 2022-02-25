@@ -265,6 +265,8 @@ $(call add_json_bool, SelinuxIgnoreNeverallows, $(filter true,$(SELINUX_IGNORE_N
 
 $(call add_json_bool, SepolicySplit, $(filter true,$(PRODUCT_SEPOLICY_SPLIT)))
 
+$(call add_json_str, DefaultAPEXFSType, $(PRODUCT_DEFAULT_APEX_FS_TYPE))
+
 $(call json_end)
 
 $(file >$(SOONG_VARIABLES).tmp,$(json_contents))
