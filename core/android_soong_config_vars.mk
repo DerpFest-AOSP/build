@@ -50,7 +50,7 @@ else ifeq (,$(filter-out modules_% mainline_modules_%,$(TARGET_PRODUCT)))
   # Always build from source for the module targets. This ought to be covered by
   # the TARGET_BUILD_APPS check above, but there are test builds that don't set it.
   SOONG_CONFIG_art_module_source_build := true
-else ifeq (true,$(MODULE_BUILD_FROM_SOURCE))
+else ifdef MODULE_BUILD_FROM_SOURCE
   # Build from source if other Mainline modules are.
   SOONG_CONFIG_art_module_source_build := true
 else ifneq (,$(filter true,$(NATIVE_COVERAGE) $(CLANG_COVERAGE)))
@@ -91,6 +91,6 @@ ifdef APEX_BUILD_FOR_PRE_S_DEVICES
 $(call add_soong_config_var_value,ANDROID,library_linking_strategy,prefer_static)
 endif
 
-ifeq (true,$(MODULE_BUILD_FROM_SOURCE))
+ifdef MODULE_BUILD_FROM_SOURCE
 $(call add_soong_config_var_value,ANDROID,module_build_from_source,true)
 endif
