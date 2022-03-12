@@ -240,7 +240,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("      Are you ready for the Derpness?     ");
   script.Print("                                          ");
   script.Print("------------------------------------------");
-  script.Print(" Android version: %s"%(android_version));
+  script.Print(" Android version: 12L");
   script.Print(" Build id: %s"%(build_id));
   script.Print(" Build date: %s"%(build_date));
   script.Print(" Security patch: %s"%(security_patch));
