@@ -781,6 +781,7 @@ function lunch()
         vendor/derp/build/tools/roomservice.py $product true
         cd - > /dev/null
     fi
+    source_vendorsetup
 
     TARGET_PRODUCT=$product \
     TARGET_BUILD_VARIANT=$variant \
