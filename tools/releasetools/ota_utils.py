@@ -48,6 +48,7 @@ METADATA_PROTO_NAME = 'META-INF/com/android/metadata.pb'
 UNZIP_PATTERN = ['IMAGES/*', 'INSTALL/*', 'META/*', 'OTA/*',
                  'RADIO/*', '*/build.prop', '*/default.prop', '*/build.default', "*/etc/vintf/*"]
 SECURITY_PATCH_LEVEL_PROP_NAME = "ro.build.version.security_patch"
+TARGET_FILES_IMAGES_SUBDIR = ["IMAGES", "PREBUILT_IMAGES", "RADIO"]
 
 
 # Key is the compression algorithm, value is minimum API level required to
@@ -744,6 +745,15 @@ def ExtractTargetFiles(path: str):
     return path
   extracted_dir = common.MakeTempDir("target_files")
   common.UnzipToDir(path, extracted_dir, UNZIP_PATTERN + [""])
+  for subdir in TARGET_FILES_IMAGES_SUBDIR:
+    image_dir = os.path.join(extracted_dir, subdir)
+    if not os.path.exists(image_dir):
+      continue
+    for filename in os.listdir(image_dir):
+      if not filename.endswith(".img"):
+        continue
+      common.UnsparseImage(os.path.join(image_dir, filename))
+
   return extracted_dir
 
 
