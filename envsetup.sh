@@ -482,18 +482,35 @@ function lunch()
 
     export TARGET_BUILD_APPS=
 
-    # This must be <product>-<release>-<variant>
-    local product release variant
+    # This must be <product>-<variant>
+    local product variant
     # Split string on the '-' character.
-    IFS="-" read -r product release variant <<< "$selection"
+    IFS="-" read -r product variant <<< "$selection"
 
-    if [[ -z "$product" ]] || [[ -z "$release" ]] || [[ -z "$variant" ]]
+    if [[ -z "$product" ]] || [[ -z "$variant" ]]
     then
         echo
         echo "Invalid lunch combo: $selection"
-        echo "Valid combos must be of the form <product>-<release>-<variant>"
+        echo "Valid combos must be of the form <product>-<variant>"
         return 1
     fi
+
+    # always pick the latest release
+    release=$(grep "BUILD_ID" build/make/core/build_id.mk | tail -1 | cut -d '=' -f 2 | cut -d '.' -f 1 | tr '[:upper:]' '[:lower:]')
+    export TARGET_RELEASE=$release
+
+    if (echo -n $1 | grep -q -e "^derp_") ; then
+      DERP_BUILD=$(echo -n $product | sed -e 's/^derp_//g')
+    else
+      DERP_BUILD=
+    fi
+    export DERP_BUILD
+    DERP_DEVICE=$DERP_BUILD
+    export DERP_DEVICE
+
+    cd $T > /dev/null
+    vendor/derp/build/tools/roomservice.py $product
+    cd - > /dev/null
 
     _lunch_meat $product $release $variant
 }
