@@ -879,12 +879,6 @@ function lunch()
 
     set_stuff_for_environment
 
-    echo "";
-    cat $(gettop)/build/make/derp_ascii_logo;
-    echo"";
-
-    [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
-
     if [ $used_lunch_menu -eq 1 ]; then
       echo
       echo "Hint: next time you can simply run 'lunch $selection'"
@@ -895,6 +889,12 @@ function lunch()
     if [[ -n "${CHECK_MU_CONFIG:-}" ]]; then
       check_mu_config
     fi
+
+    echo "";
+    cat $(gettop)/build/make/derp_ascii_logo;
+    echo"";
+
+    [[ -n "${ANDROID_QUIET_BUILD:-}" ]] || printconfig
 }
 
 unset COMMON_LUNCH_CHOICES_CACHE
