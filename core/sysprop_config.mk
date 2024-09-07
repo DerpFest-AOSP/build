@@ -285,6 +285,9 @@ config_enable_uffd_gc := \
 # If the value is "default", it will be mangled by post_process_props.py.
 ADDITIONAL_PRODUCT_PROPERTIES += ro.dalvik.vm.enable_uffd_gc=$(config_enable_uffd_gc)
 
+# Include vendor specific additions to build properties
+-include vendor/derp/build/core/props.mk
+
 ADDITIONAL_SYSTEM_PROPERTIES := $(strip $(ADDITIONAL_SYSTEM_PROPERTIES))
 ADDITIONAL_PRODUCT_PROPERTIES := $(strip $(ADDITIONAL_PRODUCT_PROPERTIES))
 ADDITIONAL_VENDOR_PROPERTIES := $(strip $(ADDITIONAL_VENDOR_PROPERTIES))
