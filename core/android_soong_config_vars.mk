@@ -211,6 +211,9 @@ ifneq ($(ENABLE_VENDOR_RIL_SERVICE), true)
   $(call soong_config_set_bool,ril,use_aosp_rild,true)
 endif
 
+# Export target_board_platform to soong for hardware/google/graphics/common/libmemtrack:memtrack.$(TARGET_BOARD_PLATFORM)
+$(call soong_config_set,ANDROID,target_board_platform,$(TARGET_BOARD_PLATFORM))
+
 # Export related variables to soong for hardware/google/graphics/common/libacryl:libacryl
 ifdef BOARD_LIBACRYL_DEFAULT_COMPOSITOR
   $(call soong_config_set,acryl,libacryl_default_compositor,$(BOARD_LIBACRYL_DEFAULT_COMPOSITOR))
