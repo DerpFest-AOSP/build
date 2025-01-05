@@ -74,6 +74,11 @@ PRODUCT_PACKAGES += \
     shell_and_utilities_vendor \
     odm-build.prop \
 
+# libhealthloop BPF filter. This is in base_vendor.mk because libhealthloop must
+# be a static library and because the Android build system ignores 'required'
+# sections for static libraries.
+PRODUCT_PACKAGES += filterPowerSupplyEvents.o
+
 # Base modules when shipping api level is less than or equal to 34
 PRODUCT_PACKAGES_SHIPPING_API_LEVEL_34 += \
      android.hidl.memory@1.0-impl.vendor \
@@ -105,3 +110,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     adb_debug.prop \
     userdebug_plat_sepolicy.cil
+
+# On eng or userdebug builds, build in perf-setup-sh by default.
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += \
+    perf-setup-sh
+endif
