@@ -16,19 +16,3 @@
 
 # This ad is kind of big, so only show it if this appears to be a clean build.
 source $(cd $(dirname $BASH_SOURCE) &> /dev/null && pwd)/../../shell_utils.sh
-if [[ ! -e $(getoutdir)/soong/build.${TARGET_PRODUCT}.ninja ]]; then
-  echo
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo "  Wondering whether to use user, userdebug or eng?"
-  echo
-  echo "  user        The builds that ship to users. Reduced debugability."
-  echo "  userdebug   High fidelity to user builds but with some debugging options"
-  echo "              enabled. Best suited for performance testing or day-to-day use"
-  echo "              with debugging enabled."
-  echo "  eng         More debugging options enabled and faster build times, but"
-  echo "              runtime performance tradeoffs. Best suited for day-to-day"
-  echo "              local development when not doing performance testing."
-  echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-  echo
-fi
-
